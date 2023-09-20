@@ -1,10 +1,27 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const { logger } = require('./middleware/logger')
+const errorHandler = require('./middleware/errorHandler')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
+const corsOptions = require('./config/corsOptions')
+
 const PORT = process.env.PORT || 3500
 
+
+app.use(logger)
+
+app.use(cors(corsOptions))
+
+// will allow the app to receive and parse the json data
+app.use(express.json())
+
+// will allow the app to parse the cookies received
+app.use(cookieParser())
+
 // Tell express where to find static files like css, images etc.
-app.use('/', express.static(path.join(__dirname, '/public')))
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 // Use the 'root' route defined in 'root.js'
 app.use('/', require('./routes/root'))
@@ -22,6 +39,8 @@ app.all('*', (req, res) => {
         res.type('txt').send('404 Not Found');
     }
 })
+
+app.use(errorHandler)
 
 // Start the Express server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
