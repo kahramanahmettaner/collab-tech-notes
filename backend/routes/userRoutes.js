@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const usersController = require('../controllers/userController')
+const usersController = require('../controllers/usersController')
 
 router.route('/') // this will match '/users' 
     .get(usersController.getAllUsers)
