@@ -7,7 +7,10 @@ const bcrypt = require('bcrypt')
 // @route GET /users
 // @access Private
 const getAllUsers = asyncHandler( async (req, res) => {
+    // Get all users from MongoDB
     const users = await User.find().select('-password').lean() // don't return password  // without lean mongoose would give a full document with methods like save() we only need data 
+    
+    // If no users 
     if (!users?.length) {
         return res.status(400).json({ message: 'No users found' })
     }
@@ -40,7 +43,7 @@ const createNewUser = asyncHandler( async (req, res) => {
     // Create and store new user
     const user = await User.create(userObject)
 
-    if (user) { // created
+    if (user) { // Created
         res.status(201).json({ message: `New user ${username} created` })
     } else {
         res.status(400).json({ message: "Invalid user data received" })
@@ -58,6 +61,7 @@ const updateUser = asyncHandler( async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
+    // Confirm note exists to update
     const user = await User.findById(id).exec() // if we requested the lean data in return we would not recieve save method below
 
     if (!user) {
@@ -66,6 +70,7 @@ const updateUser = asyncHandler( async (req, res) => {
 
     // Check for duplicates
     const duplicate = await User.findOne({ username }).lean().exec()
+    
     // Allow updates to the original user
     if (duplicate && duplicate?._id.toString() !== id) {
         return res.status(409).json({ message: 'Duplicate username' })
@@ -91,15 +96,18 @@ const updateUser = asyncHandler( async (req, res) => {
 const deleteUser = asyncHandler( async (req, res) => {
     const { id } = req.body
 
+    // Confirm data
     if (!id) {
         return res.status(400).json({ message: 'User ID Required' })
     }
 
+    // Confirm user does not have assigned notes
     const note = await Note.findOne({ user: id }).lean().exec()
     if (note) {
         return res.status(400).json({ message: 'User has assigned notes' })
     }
 
+    // Confirm user exists to delete
     const user = await User.findById(id).exec()
     if (!user) {
         return res.status(400).json({ message: "User not found" })
