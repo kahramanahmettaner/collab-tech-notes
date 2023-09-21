@@ -29,8 +29,9 @@ app.use(cookieParser())
 // Tell express where to find static files like css, images etc.
 app.use('/', express.static(path.join(__dirname, 'public')))
 
-// Use the 'root' route defined in 'root.js'
+// routes
 app.use('/', require('./routes/root'))
+app.use('/users', require('./routes/userRoutes'))
 
 // Handle 404 errors
 app.all('*', (req, res) => {
