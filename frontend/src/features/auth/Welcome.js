@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const Welcome = () => {
   
     const date = new Date()
@@ -7,6 +9,8 @@ const Welcome = () => {
         <section className="welcome">
             <p> {today} </p>
             <h1> Welcome! </h1>
+            <p><Link to="/dash/notes">View Notes</Link></p>
+            <p><Link to="/dash/users">View User Settings</Link></p>
         </section>
     )
 
