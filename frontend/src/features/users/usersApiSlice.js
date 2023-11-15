@@ -38,12 +38,22 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: [
                 { type: 'User', id: 'LIST' }
             ]
+        }),
+        updateUser: builder.mutation({
+            query: initalUserData => ({
+                url: '/users',
+                method: 'PATCH',
+                body: { ...initalUserData }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'User', id: arg.id }
+            ]
         })
     })
 })
 
 // rtk query generates hooks based on the endpoints
-export const { useGetUsersQuery, useAddNewUserMutation } = usersApiSlice
+export const { useGetUsersQuery, useAddNewUserMutation, useUpdateUserMutation } = usersApiSlice
 
 // returns the query result object
 export const selectUsersResult = usersApiSlice.endpoints.getUsers.select()
