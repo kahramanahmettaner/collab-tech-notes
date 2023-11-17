@@ -41,11 +41,21 @@ export const notesApiSlice = apiSlice.injectEndpoints({
                 { type: 'Note', id: 'LIST' }
             ]
         }),
+        updateNote: builder.mutation({
+            query: initalNote => ({
+                url: '/notes',
+                method: 'PATCH',
+                body: { ...initalNote }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Note', id: arg.id }
+            ]
+        })
     })
 })
 
 // rtk query generates hooks based on the endpoints
-export const { useGetNotesQuery, useAddNewNoteMutation } = notesApiSlice
+export const { useGetNotesQuery, useAddNewNoteMutation, useUpdateNoteMutation } = notesApiSlice
 
 // returns the query result object
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select()
