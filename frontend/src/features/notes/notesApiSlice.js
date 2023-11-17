@@ -50,12 +50,22 @@ export const notesApiSlice = apiSlice.injectEndpoints({
             invalidatesTags: (result, error, arg) => [
                 { type: 'Note', id: arg.id }
             ]
+        }),
+        deleteNote: builder.mutation({
+            query: ({ id }) => ({
+                url: '/notes',
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Note', id: arg.id }
+            ]
         })
     })
 })
 
 // rtk query generates hooks based on the endpoints
-export const { useGetNotesQuery, useAddNewNoteMutation, useUpdateNoteMutation } = notesApiSlice
+export const { useGetNotesQuery, useAddNewNoteMutation, useUpdateNoteMutation, useDeleteNoteMutation } = notesApiSlice
 
 // returns the query result object
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select()
