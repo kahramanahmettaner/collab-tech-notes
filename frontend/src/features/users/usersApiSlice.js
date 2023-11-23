@@ -12,7 +12,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError // even if response.status === 200 there could be an error
             },
-            keepUnusedDataFor: 5, // default is 60 secs and more suitable for deployment
             transformResponse: responseData => {
                 const loadedUsers = responseData.map(user => {
                     user.id = user._id // we use normalized data and it expects an id property 
