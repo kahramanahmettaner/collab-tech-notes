@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/authController')
+const loginLimiter = require('../middleware/loginLimiter')
 
 router.route('/') // this will match '/auth' 
-    .post(authController.login)
+    .post(loginLimiter, authController.login)
 
 router.route('/refresh') // this will match '/auth/refresh' 
     .get(authController.refresh)
