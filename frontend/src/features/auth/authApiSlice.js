@@ -17,11 +17,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
-                    // const { data } =
-                    await queryFulfilled
-                    // console.log(data)
+                    const { data } = await queryFulfilled
+                    console.log(data)
                     dispatch(logOut())
-                    dispatch(apiSlice.util.resetApiState())
+                    
+                    // Resolves the problem of failing to unsubscribe users' and notes' queries when logging out from usersList.js or notesList.js
+                    // Using a timeout to ensure proper execution after logout, dispatches a resetApiState action from the apiSlice to clear API-related state.
+                    setTimeout(() => {
+                        dispatch(apiSlice.util.resetApiState())
+                    }, 1000)
                 } catch (err) {
                     console.log(err)
                 }
