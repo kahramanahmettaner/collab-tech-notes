@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 import { useRefreshMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
 import { useSelector } from 'react-redux'
-import { selectCurrentToken } from './authApiSlice'
+import { selectCurrentToken } from './authSlice'
 
-const persistLogin = () => {
+const PersistLogin = () => {
 
     const [persist] = usePersist()
     const token = useSelector(selectCurrentToken)
@@ -83,4 +83,4 @@ const persistLogin = () => {
     return content
 }
 
-export default persistLogin
+export default PersistLogin
