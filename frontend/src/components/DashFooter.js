@@ -3,7 +3,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate, useLocation } from "react-router-dom"
 import useAuth from '../hooks/useAuth'
 
-const DashLayout = () => {
+const DashFooter = () => {
 
     const { username, status } = useAuth()
 
@@ -31,4 +31,4 @@ const DashLayout = () => {
     return content
 }
 
-export default DashLayout
+export default DashFooter

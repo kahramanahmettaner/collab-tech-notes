@@ -8,7 +8,7 @@ const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
 
-const DashLayout = () => {
+const DashHeader = () => {
 
     const navigate = useNavigate()
     const { pathname } = useLocation()
@@ -55,4 +55,4 @@ const DashLayout = () => {
     return content
 }
 
-export default DashLayout
+export default DashHeader
