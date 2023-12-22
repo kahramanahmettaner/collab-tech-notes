@@ -7,7 +7,7 @@ const RequireAuth = ({ allowedRoles }) => {
     const { roles } = useAuth()
 
     const content = (
-        roles.some( role => allowedRoles.include(role) )
+        roles.some( role => allowedRoles.includes(role) )
             ? <Outlet />
             : <Navigate to='/login' state={{ from: location }} replace /> // removes the RequireAuth component from the history
     )
