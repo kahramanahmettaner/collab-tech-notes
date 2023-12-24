@@ -29,7 +29,7 @@ const createNewUser = asyncHandler( async (req, res) => {
     }
 
     // Check for duplicates
-    const duplicate = await User.findOne({ username }).lean().exec() // exec method will execute the query and return a Promise
+    const duplicate = await User.findOne({ username }).collation({ locale: 'en', strength: 2 }).lean().exec() // exec method will execute the query and return a Promise
 
     if (duplicate) {
         return res.status(409).json({ message: 'Duplicate username' })
@@ -69,7 +69,7 @@ const updateUser = asyncHandler( async (req, res) => {
     }
 
     // Check for duplicates
-    const duplicate = await User.findOne({ username }).lean().exec()
+    const duplicate = await User.findOne({ username }).collation({ locale: 'en', strength: 2 }).lean().exec()
     
     // Allow updates to the original user
     if (duplicate && duplicate?._id.toString() !== id) {
