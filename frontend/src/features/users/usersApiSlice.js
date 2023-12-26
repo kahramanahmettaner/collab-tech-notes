@@ -8,10 +8,12 @@ const initialState = usersAdapter.getInitialState()
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getUsers: builder.query({
-            query: () => '/users',
-            validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError // even if response.status === 200 there could be an error
-            },
+            query: () => ({
+                url: '/users',
+                validateStatus: (response, result) => {
+                    return response.status === 200 && !result.isError // even if response.status === 200 there could be an error
+                },
+            }),
             transformResponse: responseData => {
                 const loadedUsers = responseData.map(user => {
                     user.id = user._id // we use normalized data and it expects an id property 
