@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
 import { useGetUsersQuery } from "./usersApiSlice"
+import { memo } from 'react'
 
 const User = ({ userId }) => {
 
@@ -36,5 +37,5 @@ const User = ({ userId }) => {
     } 
 }
 
-export default User
-
+const memoizedUser = memo(User)
+export default memoizedUser
