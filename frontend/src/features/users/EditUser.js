@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import EditUserForm from './EditUserForm'
 import { useGetUsersQuery } from './usersApiSlice'
+import { PulseLoader } from 'react-spinners'
 
 const EditUser = () => {
     const { id } = useParams()
@@ -11,8 +12,10 @@ const EditUser = () => {
         })
     })
 
-    const content = user ? <EditUserForm user={user} /> : <p>Loading...</p>
+    if (!user) return <PulseLoader color={'#FFF'} />
 
+    const content = <EditUserForm user={user} />
+    
     return content 
 }
 
