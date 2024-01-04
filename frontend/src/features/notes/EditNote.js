@@ -4,8 +4,11 @@ import { useGetUsersQuery } from '../users/usersApiSlice'
 import { useGetNotesQuery } from './notesApiSlice'
 import useAuth from '../../hooks/useAuth'
 import { PulseLoader } from 'react-spinners'
+import useTitle from '../../hooks/useTitle'
 
 const EditNote = () => {
+    useTitle('Collab Tech Notes: Edit Note')
+
     const { id } = useParams()
 
     const { username, isManager, isAdmin } = useAuth()

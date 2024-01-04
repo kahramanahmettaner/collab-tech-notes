@@ -2,8 +2,11 @@ import { useParams } from 'react-router-dom'
 import EditUserForm from './EditUserForm'
 import { useGetUsersQuery } from './usersApiSlice'
 import { PulseLoader } from 'react-spinners'
+import useTitle from '../../hooks/useTitle'
 
 const EditUser = () => {
+    useTitle('Collab Tech Notes: Edit User')
+
     const { id } = useParams()
 
     const { user } = useGetUsersQuery('usersList', {
