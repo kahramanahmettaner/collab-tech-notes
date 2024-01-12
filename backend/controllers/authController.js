@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -7,7 +6,7 @@ const jwt = require('jsonwebtoken')
 // @desc Login
 // @route POST /auth
 // @access Public
-const login = asyncHandler(async (req, res) => {
+const login = (async (req, res) => {
     const { username, password } = req.body
 
     if (!username || !password) {

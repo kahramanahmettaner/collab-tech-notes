@@ -1,12 +1,11 @@
 const User = require('../models/User')
 const Note = require('../models/Note')
-const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
 // @desc Get all users
 // @route GET /users
 // @access Private
-const getAllUsers = asyncHandler( async (req, res) => {
+const getAllUsers = ( async (req, res) => {
     // Get all users from MongoDB
     const users = await User.find().select('-password').lean() // don't return password  // without lean mongoose would give a full document with methods like save() we only need data 
     
@@ -20,7 +19,7 @@ const getAllUsers = asyncHandler( async (req, res) => {
 // @desc Create new user
 // @route POST /users
 // @access Private
-const createNewUser = asyncHandler( async (req, res) => {
+const createNewUser = ( async (req, res) => {
     const { username, password, roles } = req.body
 
     // Confirm data
@@ -55,7 +54,7 @@ const createNewUser = asyncHandler( async (req, res) => {
 // @desc Update a user
 // @route PATCH /users
 // @access Private
-const updateUser = asyncHandler( async (req, res) => {
+const updateUser = ( async (req, res) => {
     const { id, username, roles, active, password } = req.body
 
     // Confirm data
@@ -95,7 +94,7 @@ const updateUser = asyncHandler( async (req, res) => {
 // @desc Delete a user
 // @route DELETE /users
 // @access Private
-const deleteUser = asyncHandler( async (req, res) => {
+const deleteUser = ( async (req, res) => {
     const { id } = req.body
 
     // Confirm data
